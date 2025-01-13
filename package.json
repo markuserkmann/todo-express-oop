@@ -1,0 +1,16 @@
+{
+  "name": "todo-express-oop",
+  "version": "1.0.0",
+  "description": "OOP ",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Markus Erkmann",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
