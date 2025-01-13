@@ -1,22 +1,26 @@
+import { fileManager } from '../data/files.js'
 import { Todo } from '../models/todo.js'
 
 class todoController {
     constructor() {
         this.TODOS = []
     }
-    createTodo(req, res) {
+    async createTodo(req, res) {
         const task = req.body.task
         console.log(req.body)
         const newTodo = new Todo(Math.random().toString(), task)
 
         this.TODOS.push(newTodo)
 
+        await fileManager.writeFile('./data/todos.json', this.TODOS)
+
         res.json({
             message: 'created new todo object',
             newTask: newTodo
         })
     }
-    getTodos(req, res) {
+    async getTodos(req, res) {
+        await this.init()
         res.json({tasks: this.TODOS})
     }
     updateTodo (req, res) {
@@ -38,6 +42,15 @@ class todoController {
             message: 'Updated succesfully!',
             taskID: ID
         })
+    }
+    async init() {
+        const todosData = await fileManager.readFile('./data/todos.json')
+
+        if(todosData !== null){
+            this.TODOS = todosData
+        } else {
+            this.TODOS = []
+        }
     }
 }
 
